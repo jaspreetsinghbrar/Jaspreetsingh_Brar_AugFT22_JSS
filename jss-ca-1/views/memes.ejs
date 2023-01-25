@@ -12,14 +12,18 @@
 <body class="position-relative" data-bs-spy="scroll">
   <%- include('./partials/navbar.ejs') %>
     <section class="container">
-      <table class="table" id="table">
+      <table class="table text-center" id="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Size</th>
             <th scope="col">Image</th>
-            <th scope="col">Options</th>
+            <th scope="col">Name</th>
           </tr>
+          <% for(const meme of memes){%>
+            <tr>
+              <td scope="col"><img src="<%=meme.url%>" height="<%= meme.height*0.20 %>" width="<%= meme.width*0.20 %>"></td>
+              <td scope="col"><%= meme.name%></td>
+            </tr>
+          <%}%>
         </thead>
         <tbody>
 
