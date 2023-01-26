@@ -10,15 +10,52 @@
 
 <body class="position-relative" data-bs-spy="scroll">
   <%- include('./partials/navbar.ejs') %>
-    <section class="container">
+  <section class="container">
+<br><br>
+    <table class="table" id="table">
+      <thead class="text-center">
+        <th colspan="2">Meme Details</tr>
+      </thead>
+      <tbody class="text-center">
+        <tr>
+          <th scope="col">Id</th>
+          <td><%=id%></td>
+        </tr>
+        <tr>
+          <th scope="col">Name</th>
+          <td><%=name%></td>
+        </tr>
+        <tr>
+          <th scope="col">URL</th>
+          <td><%=url%></td>
+        </tr>
+        <tr>
+          <th scope="col">Width</th>
+          <td><%=width%></td>
+        </tr>
+        <tr>
+          <th scope="col">Height</th>
+          <td><%=height%></td>
+        </tr>
+        <tr>
+          <th scope="col">Box Count</th>
+          <td><%=box_count%></td>
+        </tr>
+        <tr>
+          <th scope="col">Captions</th>
+          <td><%=captions%></td>
+        </tr>
+        <tr>
+          <th>Meme</th>
+          <td><img src=<%=url%> alt=""></td>
+        </tr>
+      </tbody>
+    </table>
 
 
-      </div>
+  </section>
 
-
-    </section>
-
-    <%- include('./partials/scripts.ejs') %>
+  <%- include('./partials/scripts.ejs') %>
 </body>
 
 </html>
