@@ -1,10 +1,14 @@
-var express = require("express");
-var router = express.Router();
-// const { resolve } = require('path');
+const express = require("express");
+const router = express.Router();
 const axios = require("axios");
 
 router.post("/", async (req, res) => {
-  res.render("meme", req.body);
+  if (req.isAuthenticated()) {
+    req.body.authenticated = req.isAuthenticated();
+    req.body.username = req.user[0].username;
+    res.render("meme", req.body);
+  }
+  if (!req.isAuthenticated()) res.redirect("login");
 });
 
 module.exports = router;

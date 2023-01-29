@@ -1,13 +1,17 @@
-var express = require("express");
-var router = express.Router();
-var memes = require("./memes");
-var meme = require("./meme");
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { memes: global.memes });
+const express = require("express");
+const router = express.Router();
+const memes = require("./memes");
+const meme = require("./meme");
+const login = require("./login");
+const logout = require("./logout");
+
+router.get("/", (req, res) => {
+  res.redirect("/memes");
 });
 
 router.use("/memes", memes);
 router.use("/meme", meme);
+router.use("/login", login);
+router.use("/logout", logout);
 
 module.exports = router;

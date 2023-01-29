@@ -28,6 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, async () => {
+  console.log(`Server started successfully 🚀🚀🚀`);
   request.get(process.env.MEMES_API, (err, res) => {
     responseBody = JSON.parse(res.body);
     if (err) console.log("Error in fetching memes !!! ", err);

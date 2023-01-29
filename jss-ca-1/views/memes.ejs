@@ -2,35 +2,38 @@
 <html lang="en">
 
 <head>
-  <title>Portfolio</title>
-  <!-- BM Chaneg the path to the css files -->
-  <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-  <link href="../../stylesheets/navbar.css" rel="stylesheet">
-
+  <title>Meme Central</title>
+  <%- include('./partials/head.ejs') %>
 </head>
 
 <body class="position-relative" data-bs-spy="scroll">
-  <%- include('./partials/navbar.ejs') %>
+  <%- include('./partials/navbar.ejs', {authenticated: authenticated, username: username}) %>
   <section class="container">
     <br>
     <br>
-    <input class="form-control" type="text" id="search" onkeyup="searchTable()" placeholder="Search for memes...">
-    <br>
+    <div class="input-group">
+      <input class="form-control" type="text" id="search" placeholder="Search for memes...">
+      <input class="btn btn-primary" type="submit" onclick="searchTable()" value="Search">
+    </div>
+    <br><br>
     <table class="table text-center" id="table">
       <thead>
         <tr>
           <th scope="col">Image</th>
           <th scope="col">Name</th>
+          <% if(authenticated){%>
           <th scope="col">Details</th>
+          <%}%>
         </tr>
       </thead>
       <tbody>
-        <% for(const meme of memes){%>
-        <tr>
+        <% for(const [index,meme] of Object.entries(memes)){%>
+        <tr id="<%= 'tr'+index %>">
           <td scope="col"><img src="<%=meme.url%>" height="<%= meme.height*0.20 %>" width="<%= meme.width*0.20 %>"></td>
           <td scope="col"><%= meme.name%></td>
+          <% if(authenticated){ %>
           <td>
-            <form action="/meme" method="post">
+            <form id="<%= 'details-form-' + index %>" action="/meme" method="post" onsubmit="viewed()">
               <input type="text" class='d-none' value="<%=meme.id%>" name="id">
               <input type="text" class='d-none' value="<%=meme.name%>" name="name">
               <input type="text" class='d-none' value="<%=meme.url%>" name="url">
@@ -38,15 +41,17 @@
               <input type="text" class='d-none' value="<%=meme.height%>" name="height">
               <input type="text" class='d-none' value="<%=meme.box_count%>" name="box_count">
               <input type="text" class='d-none' value="<%=meme.captions%>" name="captions">
-              <button type="submit" class="btn btn-primary">Details</button>
+              <button type="button" class="btn btn-primary <%= 'details-form-' + index %>"
+                onclick="viewed(event)">Details</button>
             </form>
           </td>
+          <%}%>
         </tr>
         <%}%>
-        </tbody>
-      </table>
-    </section>
-    <%- include('./partials/scripts.ejs') %>
+          </tbody>
+    </table>
+  </section>
+  <%- include('./partials/scripts.ejs') %>
 </body>
 
 </html>
